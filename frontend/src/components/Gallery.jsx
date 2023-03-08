@@ -9,6 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import Imagecard from "./Imagecard";
+import { Buffer } from 'buffer';
 
 
 const Gallery = ({ setselectedCat}) => {
@@ -46,7 +47,7 @@ const Gallery = ({ setselectedCat}) => {
 
            {/* <Imagecard item={item}/> */}
            <CardMedia
-              image={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(item.image.data.data)))}`}
+              image={`data:image/png;base64,${Buffer.from( item.image.data.data).toString("base64")}`}
               alt={item.catname}
               sx={{
                 width: { xs: "100%", sm: "358px", md: "320px" },

@@ -5,9 +5,9 @@ export const fetchdata = createAsyncThunk("fetchdata", async () => {
     const response = await fetch("http://localhost:5000/fetchcats")
     return response.json()
 })
-export const updateclicks = createAsyncThunk("updateclicks", async (id, clicks) => {
- console.log("updateclikcs",clicks)
-    const response = await fetch(`http://localhost:5000/updatecat/${id}`, {
+export const updateclicks = createAsyncThunk("updateclicks", async (cat) => {
+ console.log("updateclikcs",cat.clicks)
+    const response = await fetch(`http://localhost:5000/updatecat/${cat._id}`, {
         method: 'PUT',
         mode: 'cors',
 
@@ -16,7 +16,7 @@ export const updateclicks = createAsyncThunk("updateclicks", async (id, clicks) 
 
         },
 
-        body: JSON.stringify({ clicks})
+        body: JSON.stringify({ clicks:cat.clicks+1})
     })
     return response.json()
 })
@@ -50,7 +50,6 @@ const catSlice = createSlice({
         builder.addCase(fetchdata.fulfilled, (state, action) => {
             state.isLoading = false;
             state.data = action.payload;
-            state.addedcat = state.data[state.data.length - 1]
         })
         builder.addCase(fetchdata.rejected, (state, action) => {
             console.log("Error", action.payload)
@@ -61,7 +60,7 @@ const catSlice = createSlice({
         })
         builder.addCase(addData.fulfilled, (state, action) => {
             state.isLoading = false;
-            // state.addedcat=action.payload;
+            state.addedcat=action.payload;
         })
         builder.addCase(addData.rejected, (state, action) => {
             console.log("Error", action.payload)

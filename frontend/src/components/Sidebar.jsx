@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import { updateclicks,fetchdata } from "../Redux/slice/catslice";
 import { useSelector,useDispatch } from "react-redux";
 
-const Sidebar = memo(({selectedCat, setselectedCat}) => {
+const Sidebar = ({selectedCat, setselectedCat}) => {
   const dispatch=useDispatch()
   const data=useSelector((state)=>state.catclicker.data)
   const addedcat = useSelector((state) => state.catclicker.addedcat)
@@ -36,9 +36,10 @@ const Sidebar = memo(({selectedCat, setselectedCat}) => {
               justifyContent:"space-between"
             }}
             onClick={() => {
+              console.log("butoon clicked",cat._id,cat.clicks)
+              dispatch(updateclicks(cat))
+              dispatch(fetchdata)
               setselectedCat(cat)
-              // dispatch(updateclicks(cat._id,cat._clicks+1))
-              // dispatch(fetchdata)
 
                }}
             key={cat._id}
@@ -59,6 +60,6 @@ const Sidebar = memo(({selectedCat, setselectedCat}) => {
       </Stack>
     </>
   );
-});
+};
 
 export default Sidebar;

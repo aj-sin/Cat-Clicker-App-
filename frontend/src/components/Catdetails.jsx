@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { Buffer } from 'buffer';
 
 const Catdetails = ({selectedCat}) => {
   if(selectedCat===""){
@@ -9,24 +10,22 @@ const Catdetails = ({selectedCat}) => {
       </h3>
     )
   }
-  const base64String = btoa(
-    String.fromCharCode(...new Uint8Array(selectedCat.image.data.data))
-  );
+  const base64String = Buffer.from( selectedCat.image.data.data).toString("base64")
   let age="";
   switch (true) {
-    case selectedCat.clicks <= 5:
+    case (selectedCat.clicks+1) <= 5:
       age = "Infant";
       break;
-    case selectedCat.clicks <= 12:
+    case (selectedCat.clicks+1) <= 12:
       age = "Child";
       break;
-    case selectedCat.clicks <= 25:
+    case (selectedCat.clicks+1)<= 25:
       age = "Young";
       break;
-    case selectedCat.clicks <= 40:
+    case (selectedCat.clicks+1) <= 40:
       age = "Middle-Age";
       break;
-    case selectedCat.clicks <= 60:
+    case (selectedCat.clicks+1) <= 60:
       age = "Old";
       break;
     default:
@@ -50,7 +49,7 @@ const Catdetails = ({selectedCat}) => {
         {selectedCat.catname}
       </Typography>
       <Typography variant='subtitle1' color="grey">
-       No.of times clicked : {selectedCat.clicks}
+       No.of times clicked : {selectedCat.clicks+1}
       </Typography>
       
         <CardMedia

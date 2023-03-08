@@ -8,7 +8,11 @@ import React from 'react'
 function App() {
   const dispatch = useDispatch()
   const catdata = useSelector((state) => state.catclicker.data)
+  const addedcat=useSelector((state)=>state.catclicker.addedcat)
   const [selectedCat, setselectedCat] = useState("")
+  if(addedcat){
+
+  }
   useEffect(() => {
     console.log("api calling")
     dispatch(fetchdata())
