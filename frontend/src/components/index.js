@@ -1,0 +1,7 @@
+export {default as Navbar} from './navbar'
+export {default as Catdetails} from './Catdetails'
+export {default as Sidebar} from './Sidebar'
+export {default as Gallery} from './Gallery'
+export {default as Catforms} from './Catforms'
+export {default as Addcatmodal} from './Addcatmodal'
+export {default as Imagecard} from './Imagecard'
