@@ -23,6 +23,10 @@ const storage = multer.diskStorage({
   },
 });
 
+app.use(cors({
+  origin: "https://catclikcer.onrender.com"
+}));
+
 const upload = multer({ storage: storage });
 
 app.post("/addcat", upload.single("image"), async (req, res) => {
