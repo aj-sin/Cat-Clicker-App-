@@ -3,13 +3,17 @@ import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { Buffer } from 'buffer';
 
 const Catdetails = ({selectedCat}) => {
-  if(selectedCat===""){
+  console.log(selectedCat,"ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")
+  if(selectedCat._id===""){
     return(
       <h3>
         cat details
       </h3>
     )
   }
+  // console.log("catdetails",selectedCat)
+  // console.log("image",selectedCat.data)
+ 
   const base64String = Buffer.from( selectedCat.image.data.data).toString("base64")
   let age="";
   switch (true) {
@@ -49,7 +53,7 @@ const Catdetails = ({selectedCat}) => {
         {selectedCat.catname}
       </Typography>
       <Typography variant='subtitle1' color="grey">
-       No.of times clicked : {selectedCat.clicks+1}
+       No.of times clicked : {selectedCat.clicks}
       </Typography>
       
         <CardMedia

@@ -1,29 +1,25 @@
-import React ,{memo,useEffect}from "react";
+import React ,{useEffect}from "react";
 import { Stack } from "@mui/material";
 import { updateclicks,fetchdata } from "../Redux/slice/catslice";
 import { useSelector,useDispatch } from "react-redux";
+import { clicksupdate } from "../Api/updateclick";
 
 const Sidebar = ({selectedCat, setselectedCat}) => {
   const dispatch=useDispatch()
   const data=useSelector((state)=>state.catclicker.data)
-  const addedcat = useSelector((state) => state.catclicker.addedcat)
-
-  useEffect(() => {
-    if(data)
-    setselectedCat(addedcat)
-    // eslint-disable-next-line 
-  }, [])
 
 
-  console.log(data)
+
+
+  console.log(data,"sidebaar")
   return (
     <>
       <Stack
         direction="row"
         sx={{
           flexDirection: { md: "column" },
-          overflowY: "auto",
-          height: { sx: "auto", md: "95%" },
+          overflow: 'auto',
+          height: { sx: "auto", md: "96%" },
         }}
       >
         {data.map((cat) => (
@@ -35,12 +31,12 @@ const Sidebar = ({selectedCat, setselectedCat}) => {
               display:"flex",
               justifyContent:"space-between"
             }}
-            onClick={() => {
+            onClick={async() => {
               console.log("butoon clicked",cat._id,cat.clicks)
-              dispatch(updateclicks(cat))
+              let updatedcat=await clicksupdate(cat)
+              console.log("letsssssssssss sseeeee",updatedcat)
               dispatch(fetchdata)
-              setselectedCat(cat)
-
+              setselectedCat(updatedcat.data)
                }}
             key={cat._id}
           >

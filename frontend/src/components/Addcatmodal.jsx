@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addData,fetchdata } from "../Redux/slice/catslice";
+import {Addcat} from "../Api/Addcatapi"
 import { useDispatch } from "react-redux";
 import {
   Stack,
@@ -29,9 +30,12 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
     setCatdata({ ...catdata, image: e.target.files[0] });
   };
   const handleadd = async(e) => {
-    dispatch(addData(catdata));
+    // dispatch(addData(catdata));
+    e.preventDefault()
+    let newcat=await Addcat(catdata)
     dispatch(fetchdata())
-    setselectedCat("")
+    setselectedCat(newcat)
+
     setCatdata({ catname: "", nickname: "", clicks: 0, image: [] });
     handleClose();
 
@@ -43,6 +47,7 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
+      
       <Box
         sx={{
           position: "absolute",
@@ -58,11 +63,12 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
       >
         <Stack spacing={2}>
           <Typography variant="h3">Add Cats.......</Typography>
-         
+          <form onSubmit={handleadd}>
           <FormControl>
             <TextField
               id="outlined-controlled"
               label="Cat Name"
+              required
               value={catdata.catname}
               name="catname"
               InputLabelProps={{ shrink: true }}
@@ -74,6 +80,7 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
             <TextField
               id="outlined-controlled"
               label="Nick name"
+              required
               value={catdata.nickname}
               name="nickname"
               InputLabelProps={{ shrink: true }}
@@ -84,6 +91,7 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
             
             <TextField
               id="outlined-controlled"
+              required
               label="No. of clicks"
               type="number"
               name="clicks"
@@ -103,22 +111,25 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
               <input
                 placeholder="Insert Image"
                 accept="image/*"
+                required
                 type="file"
-                enctype="multipart/form-data"
+                encType="multipart/form-data"
                 onChange={handleimageChange}
               />
             </IconButton>
           </FormControl>
           <Stack direction="row" spacing={2}>
-            <Button variant="contained" onClick={handleadd}>
+            <Button variant="contained" type="submit">
               Add
             </Button>
             <Button variant="contained" onClick={handleClose}>
               Close
             </Button>
           </Stack>
+          </form>
         </Stack>
       </Box>
+      
     </Modal>
   );
 };

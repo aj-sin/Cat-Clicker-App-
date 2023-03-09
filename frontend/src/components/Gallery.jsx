@@ -1,5 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { updateclicks,fetchdata } from "../Redux/slice/catslice";
+import { clicksupdate } from "../Api/updateclick";
+import { useSelector,useDispatch } from "react-redux";
 import {
   Card,
   CardMedia,
@@ -13,6 +15,7 @@ import { Buffer } from 'buffer';
 
 
 const Gallery = ({ setselectedCat}) => {
+  const dispatch=useDispatch()
   const data = useSelector((state) => state.catclicker.data);
   console.log(data,"gallery")
   return (
@@ -28,7 +31,11 @@ const Gallery = ({ setselectedCat}) => {
     >
      
       {data.map((item) => (
-        <Box key={item._id}>
+        <Box key={item._id} onClick={async() => {
+          let updatedcat=await clicksupdate(item)
+          dispatch(fetchdata)
+          setselectedCat(updatedcat.data)
+           }}>
           <Card
             sx={{
               width: { xs: "100%", sm: "358px", md: "320px" },

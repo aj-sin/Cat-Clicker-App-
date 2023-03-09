@@ -9,7 +9,14 @@ function App() {
   const dispatch = useDispatch()
   const catdata = useSelector((state) => state.catclicker.data)
   const addedcat=useSelector((state)=>state.catclicker.addedcat)
-  const [selectedCat, setselectedCat] = useState("")
+  const [selectedCat, setselectedCat] = useState({
+    _id:"",
+    catname:"",
+    clicks:0,
+    nickname:"",
+    image:{data:{data:""}}
+  })
+  console.log(selectedCat)
   if(addedcat){
 
   }

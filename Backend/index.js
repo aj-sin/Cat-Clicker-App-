@@ -63,21 +63,34 @@ app.get('/fetchcats', async (req, res) => {
 app.put("/updatecat/:id", upload.single("image"), async (req, res) => {//this id part in the url can be accessed by param
   try {
     console.log("***********UPDATE***************")
-    const { catname, nickname, clicks, image } = req.body
+    const { catname, nickname, clicks } = req.body
+    let image=req.file
+    console.log(image)
+    if(image){
+
+       image= {
+        data: fs.readFileSync("uploads/" + req.file.filename),
+        contentType: "image/png/jpg/jpeg",
+      }
+    }
+
+    console.log( catname, nickname, clicks, image,req.params.id )
     let newcat = {}//new note is created which is going to update the previous update
 
-    newcat.catname = catname
-    newcat.nickname = nickname
-    newcat.clicks = clicks
-    newcat.image = image
-    //|Now optimization can be increased by determining whether the whole objects need to be editted or only few elements in that object
-
+    
     let data = await catsdata.findById(req.params.id)//it checks weather the entered id note is there or not
     if (!data) {
-      return res.status(404).send("not found")
+      return res.status(404).send("not found bro kuch nhi mila")
     }
+    newcat.catname = catname || data.catname
+    newcat.nickname = nickname || data.nickname
+    newcat.clicks = clicks || data.clicks
+    newcat.image = image ||data.image
+    // console.log(image===0)
+    // console.log(newcat.image,"newcat",data.image.contentType)
     data = await catsdata.findByIdAndUpdate(req.params.id, { $set: newcat }, { new: true })//note is being updated 
     res.json({ data })
+    console.log("data updated")
 
   } catch (err) {
     console.log(err)
@@ -86,7 +99,7 @@ app.put("/updatecat/:id", upload.single("image"), async (req, res) => {//this id
 })
 app.put("/updatecatclicks/:id",  async (req, res) => {//this id part in the url can be accessed by param
   try {
-    console.log("***********UPDATE***************")
+    console.log("***********UPDATE clicks***************")
     const  clicks  = req.body.clicks
     console.log("clicks:", clicks);
     console.log("id:", req.params.id);
