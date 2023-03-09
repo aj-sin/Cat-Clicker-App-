@@ -9,7 +9,7 @@ export const updatecat = async (catdata,selectedCat) => {
     if(catdata.image){
         formData.append('image',catdata.image);
     }
-    const response = await fetch(`http://localhost:5000/updatecat/${selectedCat._id}`, {
+    const response = await fetch(`https://catclickerapi.onrender.com/updatecat/${selectedCat._id}`, {
         method: "PUT",
         body: formData,
     });

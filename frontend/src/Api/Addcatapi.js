@@ -6,7 +6,7 @@ export const Addcat = async (catdata) => {
     formData.append('clicks', catdata.clicks);
     formData.append('image', catdata.image);
     console.log(catdata, "data is fetched properly")
-    const response = await fetch("http://localhost:5000/addcat", {
+    const response = await fetch("https://catclickerapi.onrender.com/addcat", {
         method: "POST",
         body: formData,
     });
