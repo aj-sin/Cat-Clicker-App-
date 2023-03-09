@@ -16,19 +16,14 @@ function App() {
     nickname:"",
     image:{data:{data:""}}
   })
-  console.log(selectedCat)
   if(addedcat){
 
   }
   useEffect(() => {
-    console.log("api calling")
     dispatch(fetchdata())
     // eslint-disable-next-line 
   }, [selectedCat,dispatch])
-  if(catdata!=null){
-
-    console.log("state", catdata)
-  }
+ 
   if(catdata==null){
     return (
       <div>
@@ -46,19 +41,19 @@ function App() {
           <Box
             sx={{
               height: { sx: "auto", md: "80vh" },
-              borderRight: "1px solid #3d3d3d",
+              borderRight: {xs:"none",md:"1px solid #3d3d3d"},
               paddingX: { sm: 0, md: 2 },
-              flex:1
+              flex:1.4
             }}
           >
             <Sidebar selectedCat={selectedCat} setselectedCat={setselectedCat} />
 
           </Box>
-          <Box px={2}  sx={{ height: "80vh", flex: 2,borderRight:"1px solid grey" }}>
+          <Box px={2}  sx={{ height: "80vh", flex: 2,borderRight: {xs:"none",md:"1px solid #3d3d3d"},display:"flex",justifyContent:"center",mt:{xs:4,md:0}}}>
 
-            <Catdetails selectedCat={selectedCat}  />
+            <Catdetails selectedCat={selectedCat} setselectedCat={setselectedCat} />
           </Box>
-          <Box px={2} sx={{ height: "80vh" ,flex:1}}>
+          <Box px={2} sx={{ height: "80vh" ,flex:1,mt:{xs:4,md:0}}}>
 
             <Catforms selectedCat={selectedCat} setselectedCat={setselectedCat}  />
           </Box>

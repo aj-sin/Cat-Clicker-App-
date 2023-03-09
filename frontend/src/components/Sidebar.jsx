@@ -1,17 +1,10 @@
-import React ,{useEffect}from "react";
+import React from "react";
 import { Stack } from "@mui/material";
-import { updateclicks,fetchdata } from "../Redux/slice/catslice";
-import { useSelector,useDispatch } from "react-redux";
-import { clicksupdate } from "../Api/updateclick";
+import { useSelector } from "react-redux";
 
 const Sidebar = ({selectedCat, setselectedCat}) => {
-  const dispatch=useDispatch()
   const data=useSelector((state)=>state.catclicker.data)
 
-
-
-
-  console.log(data,"sidebaar")
   return (
     <>
       <Stack
@@ -32,11 +25,7 @@ const Sidebar = ({selectedCat, setselectedCat}) => {
               justifyContent:"space-between"
             }}
             onClick={async() => {
-              console.log("butoon clicked",cat._id,cat.clicks)
-              let updatedcat=await clicksupdate(cat)
-              console.log("letsssssssssss sseeeee",updatedcat)
-              dispatch(fetchdata)
-              setselectedCat(updatedcat.data)
+              setselectedCat(cat)
                }}
             key={cat._id}
           >

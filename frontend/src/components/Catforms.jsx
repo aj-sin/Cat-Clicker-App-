@@ -2,7 +2,6 @@ import React, { useState,memo,useEffect } from "react";
 import { Stack, TextField, IconButton, FormControl } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import { updatecat } from "../Api/updatecat";
-import {Addcat} from "../Api/Addcatapi"
 import Button from "@mui/material/Button";
 import { fetchdata } from '../Redux/slice/catslice';
 import { Addcatmodal } from "./";
@@ -15,11 +14,6 @@ const Catforms = memo(({ selectedCat, setselectedCat }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log("formmsss",selectedCat)
-  // const catdataref = useRef("");
-  // catdataref.current=selectedCat
-  // console.log(selectedCat.image)
-  // const [catdata, setCatdata] = useState(selectedCat);
   const [catdata, setCatdata] = useState({
     catname: 0,
     nickname: 0,
@@ -34,17 +28,14 @@ const Catforms = memo(({ selectedCat, setselectedCat }) => {
         clicks: selectedCat.clicks,
       });
     }
+    // eslint-disable-next-line
   }, [selectedCat]);
-  // setCatdata(catdataref.current)
-  console.log("formmsssssssssssssssssssssssssssssss",catdata)
   const Onchange = (e) => {
     setCatdata({ ...catdata, [e.target.name]: e.target.value });
-    // catdata.current = { ...catdata.current, [e.target.name]: e.target.value }
 
   };
   const handleimageChange = (e) => {
     setCatdata({...catdata, image: e.target.files[0] });
-    // catdata.current = { ...catdata.current, image: e.target.files[0] };
   };
   const resetform = () => {
     setselectedCat(selectedCat)
@@ -57,18 +48,10 @@ const Catforms = memo(({ selectedCat, setselectedCat }) => {
   };
   const handleEdit = async (e) => {
         e.preventDefault()
-        console.log("updattttingg initaited",catdata)
         const response=await updatecat(catdata,selectedCat)
         dispatch(fetchdata())
-        // console.log("response",response)
         setselectedCat(response.data)
-      
-      
-    
   };
-  
- 
- 
   
   return (
     <>

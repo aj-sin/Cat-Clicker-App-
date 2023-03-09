@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addData,fetchdata } from "../Redux/slice/catslice";
+import { fetchdata } from "../Redux/slice/catslice";
 import {Addcat} from "../Api/Addcatapi"
 import { useDispatch } from "react-redux";
 import {
@@ -30,7 +30,6 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
     setCatdata({ ...catdata, image: e.target.files[0] });
   };
   const handleadd = async(e) => {
-    // dispatch(addData(catdata));
     e.preventDefault()
     let newcat=await Addcat(catdata)
     dispatch(fetchdata())
@@ -54,16 +53,15 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 400,
+          width: {xs:"80vw",md:"40vw"},
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
           p: 4,
         }}
-      >
+      ><form onSubmit={handleadd}>
         <Stack spacing={2}>
           <Typography variant="h3">Add Cats.......</Typography>
-          <form onSubmit={handleadd}>
           <FormControl>
             <TextField
               id="outlined-controlled"
@@ -126,8 +124,8 @@ const Addcatmodal = ({ open, handleClose ,setselectedCat}) => {
               Close
             </Button>
           </Stack>
-          </form>
         </Stack>
+          </form>
       </Box>
       
     </Modal>

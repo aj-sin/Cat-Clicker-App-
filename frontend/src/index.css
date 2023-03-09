@@ -17,6 +17,13 @@ body {
 .category-btn:hover span{
   color: white !important;
 }
+.gallerycard{
+  background: "#fff2e0";
+  transition: all 0.5s ease;
+}
+.gallerycard:hover{
+  background: #f8fee9;
+}
 
 .category-btn{
   font-weight: bold !important;
@@ -30,7 +37,7 @@ body {
   /* border: none; */
   /* border-bottom: 1px solid grey; */
 
-  padding: 7px 15px;
+  padding: 7px 20px;
   /* margin: 2px 0px; */
   transition: all 0.3s ease;
 }
