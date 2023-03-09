@@ -8,7 +8,6 @@ const cors = require("cors");
 const fs = require("fs");
 //data base connected
 connectToMongo()
-app.use(cors())
 app.use(express.json())
 dotenv.config({path:"./config.env"})
 
