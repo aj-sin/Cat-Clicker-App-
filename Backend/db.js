@@ -1,7 +1,7 @@
 const mongoose= require("mongoose")
-
-
-const mongoURI=`mongodb+srv://ajitsingh:ajitsingh@notter.llgkjyg.mongodb.net/catclicker?retryWrites=true&w=majority`
+const dotenv=require("dotenv")
+dotenv.config({path:"./config.env"})
+const mongoURI=`mongodb+srv://ajitsingh:${process.env.DATABASE}@notter.llgkjyg.mongodb.net/catclicker?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery', true);
 

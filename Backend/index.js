@@ -3,14 +3,16 @@ const express = require('express')
 const catsdata = require("./dbschema")
 const app = express()
 const multer = require("multer");
+const dotenv=require("dotenv")
 const cors = require("cors");
 const fs = require("fs");
 //data base connected
 connectToMongo()
 app.use(cors())
 app.use(express.json())
+dotenv.config({path:"./config.env"})
 
-const port = 5000
+const port = process.env.PORT ||  5000
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
